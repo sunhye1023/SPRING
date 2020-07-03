@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+	<bean id="test" class="ex01.SpringTest" scope="prototype"/> 
+	
+	<!-- 호텔객체, 셰프객체 -->
+	<bean id="chef" class="ex02.construct.Chef" /> <!-- Chef chef = new Chef();와 동일 -->
+	<!-- 생성자 주입 -->
+	<bean id="hotel" class="ex02.construct.Hotel">
+		<!-- 생성자를 통한 의존성 주입 -->
+		<constructor-arg ref="chef" />
+	</bean> <!-- Hotel h = new Hotel(chef);와 동일 -->
+	<!-- setter 주입 -->
+	<bean id="dbDev" class="ex03.setter.DatabaseDev">
+		<!-- setter를 통한 의존성 주입 -->
+		<property name="url" value="데이터베이스주소 : jdbc:oracle:thin:@localhost:1521/XEPDB1" />
+		<property name="uid" value="데이터베이스아이디 : spring"></property>
+		<property name="upw" value="데이터베이비밀번호 : spring"></property>
+	</bean>
+	<!-- setter 주입(객체) -->
+	<bean id="memberDAO" class="ex03.setter.MemberDAO">
+		<property name="datasource" ref="dbDev"></property>
+	</bean>	
+
+	<!-- ex04.quiz -->
+	<bean id="battery1" class="ex04.quiz.Battery1"/>
+	<bean id="battery2" class="ex04.quiz.Battery2"/>
+	
+	<bean id="car" class="ex04.quiz.Car">
+		<constructor-arg ref="battery2"/>
+	</bean>
+	<bean id="airplane" class="ex04.quiz.Airplane">
+		<constructor-arg ref="battery1"/>
+	</bean>
+	
+	<!-- <bean id="car" class="ex04.quiz.Car">
+		<property name="battery" ref="battery1"/>
+	</bean>
+	<bean id="airplane" class="ex04.quiz.Airplane">
+		<property name="battery" ref="battery1"/>
+	</bean> -->
+	
+	<!-- 만약에 Car에 멤버변수가 2개 있다면 이런식으로 -->
+	<!-- <bean id="car" class="ex04.quiz.Car">
+		<constructor-arg>
+			<ref bean="battery1"></ref>
+		</constructor-arg>
+	</bean> -->
+	
+	
+</beans> 
