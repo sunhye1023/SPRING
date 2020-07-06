@@ -19,7 +19,7 @@ public class JDBCBasic {
 		String upw = "spring";
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //풀없이 연결
 			Connection conn = DriverManager.getConnection(url, uid, upw);
 			System.out.println("결과확인" + conn);
 			

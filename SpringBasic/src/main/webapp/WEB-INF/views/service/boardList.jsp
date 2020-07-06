@@ -22,18 +22,18 @@
 		
 		<c:forEach var="vo" items="${list }" varStatus="num">
 		<tr>
-			<td>${num.index }</td>
+			<td>${vo.num }</td>
 			<td>${vo.name }</td>
 			<td>${vo.title }</td>
 			<td>${vo.content }</td>
+			<td><input type="button" value="삭제" onclick="location.href='boardDelete?num=${vo.num}'"></td>
+		</tr>
+		<br>
+		</c:forEach>
 			<!-- 
 			1. boardDelete로 삭제 처리하세요. 
 			2. 삭제 후엔 목록화면으로 리다이렉트 하세요.
 			-->
-			<td><input type="button" value="삭제" onclick="location.href='boardDelete?num=${num.index}'"></td>
-		</tr>
-		<br>
-		</c:forEach>
 
 	</table>
 	

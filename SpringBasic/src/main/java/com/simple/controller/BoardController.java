@@ -15,7 +15,7 @@ import com.simple.service.BoardServiceImpl;
 
 @Controller
 @RequestMapping("/service")
-public class BoardServiceController {
+public class BoardController {
 
 	@Autowired
 	private BoardServiceImpl boardService;

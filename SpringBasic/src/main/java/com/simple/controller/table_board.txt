@@ -1,0 +1,11 @@
+create table board  (
+    
+    num number(10,0),
+    name varchar2(50),
+    title varchar2(50),
+    content varchar2(200)
+);
+alter table board add CONSTRAINT board_pk PRIMARY key (num);
+create SEQUENCE board_seq INCREMENT BY 1 START with 1 nocache;
+
+select * from board;
