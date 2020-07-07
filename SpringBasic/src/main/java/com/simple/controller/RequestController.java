@@ -88,27 +88,25 @@ public class RequestController {
 //		return "request/req_ex02_result";
 //	}
 	
-	
 	//2nd
-	@RequestMapping("/param1")
-	public String param1(@RequestParam("id") String id,
-						 @RequestParam("pw") String pw,
-						 @RequestParam("name") String name,
-						 @RequestParam("age") String age,
-						 @RequestParam(value="inter", required = false, defaultValue = "") ArrayList<String> inter
-			) {
-		
-		System.out.println(id);
-		System.out.println(pw);
-		System.out.println(name);
-		System.out.println(age);
-		//필수가 아닌 파라미터는 required = false속성을 지정하면 됩니다.
-		//필수가 아닌 파라미터일 경우 null값을 지정하게 되는데 기본값의 설정으로 defaultValue옵션을 사용하면됩니다.
-		System.out.println(inter.toString());
-		
-		return "request/req_ex02_result";
-	}
-	
+//	@RequestMapping("/param1")
+//	public String param1(@RequestParam("id") String id,
+//						 @RequestParam("pw") String pw,
+//						 @RequestParam("name") String name,
+//						 @RequestParam("age") String age,
+//						 @RequestParam(value="inter", required = false, defaultValue = "") ArrayList<String> inter
+//			) {
+//		
+//		System.out.println(id);
+//		System.out.println(pw);
+//		System.out.println(name);
+//		System.out.println(age);
+//		//필수가 아닌 파라미터는 required = false속성을 지정하면 됩니다.
+//		//필수가 아닌 파라미터일 경우 null값을 지정하게 되는데 기본값의 설정으로 defaultValue옵션을 사용하면됩니다.
+//		System.out.println(inter.toString());
+//		
+//		return "request/req_ex02_result";
+//	}
 	
 	//3nd 
 //	@RequestMapping("/param1")
@@ -126,10 +124,10 @@ public class RequestController {
 //	}
 	
 	
-	@RequestMapping("/req_quiz01")
-	public String req_quiz01() {
-		return "request/req_quiz01";
-	}
+//	@RequestMapping("/req_quiz01")
+//	public String req_quiz01() {
+//		return "request/req_quiz01";
+//	}
 	
 //	@RequestMapping("/login")
 //	public String login(@RequestParam("id") String id,
@@ -144,16 +142,16 @@ public class RequestController {
 //
 //	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(ReqVO vo) {
-		
-		if(vo.getId().equals("abc123")&&vo.getPw().equals("xxx123")) {
-			return "request/req_quiz01_ok";
-		} else {
-			return "request/req_quiz01_no";
-		}
-		
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(ReqVO vo) {
+//		
+//		if(vo.getId().equals("abc123")&&vo.getPw().equals("xxx123")) {
+//			return "request/req_quiz01_ok";
+//		} else {
+//			return "request/req_quiz01_no";
+//		}
+//		
+//	}
 	
 	
 	

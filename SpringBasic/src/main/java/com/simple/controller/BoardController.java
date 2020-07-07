@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.simple.command.BoardVO;
+import com.simple.service.BoardService;
 import com.simple.service.BoardServiceImpl;
 
 @Controller
@@ -18,7 +19,8 @@ import com.simple.service.BoardServiceImpl;
 public class BoardController {
 
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
+	//private BoardServiceImpl boardService;
 	
 	//화면요청
 	@RequestMapping("/boardRegister")

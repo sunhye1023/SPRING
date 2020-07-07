@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.simple.command.ScoreVO;
+import com.simple.service.ScoreService;
 import com.simple.service.ScoreServiceImpl;
 
 @Controller
@@ -37,7 +38,8 @@ public class ScoreController {
 	//- @Controller, @Service, @Component, @Repository 자동생성 어노테이션을 붙이고, 
 	//해당패키지를 스캔명령으로 읽어서 빈으로 생성후에 자동주입 명령
 	@Autowired
-	private ScoreServiceImpl scoreService; 
+	private ScoreService scoreService;
+	//private ScoreServiceImpl scoreService; 
 	//ScoreServiceImpl.java의 @Service("빈의 아이디")에서 빈의아이디와 동일하게 해준다.
 	
 	//화면처리
