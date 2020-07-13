@@ -23,6 +23,7 @@ import com.simple.command.ScoreVO;
 public class ScoreDAOImpl implements ScoreDAO {
 
 
+
 	//DB라고 가정
 //	private ArrayList<ScoreVO> DB = new ArrayList<>();
 //	@Autowired
@@ -106,7 +107,6 @@ public class ScoreDAOImpl implements ScoreDAO {
 		jdbcTemplate.update(sql, new Object[] {num});
 		
 	}
-	
-	
+
 	
 }

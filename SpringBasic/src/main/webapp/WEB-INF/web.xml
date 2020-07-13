@@ -13,8 +13,7 @@
 	<!-- 스프링이 시작되면서, listener가 동작하고, 위에 선언된 root-contex.xml를 모든 서블릿에서 공유하도록 
 		스프링 설정파일로 초기선언 -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<!-- 디스패처 서블릿을 appServlet으로 선언하고, 초기파라미터로 스프링 설정파일의 위치를 선언 -->

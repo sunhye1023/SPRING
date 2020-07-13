@@ -41,7 +41,7 @@ public class BoardController {
 	@RequestMapping("/boardList")
 	public String boardList(Model model) {
 		
-		ArrayList<BoardVO> list = boardService.getList();
+		ArrayList<BoardVO> list = boardService.boardList();
 		
 		model.addAttribute("list", list);
 		
