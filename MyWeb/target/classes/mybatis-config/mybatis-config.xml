@@ -4,6 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
   <configuration>
-  
+  <typeAliases>
+		<typeAlias type="com.team404.command.FreeBoardVO" alias="FreeBoardVO"/>
+	</typeAliases>
   </configuration>
 
