@@ -9,5 +9,8 @@ public interface FreeBoardMapper {
 	public void regist(FreeBoardVO vo);
 	public ArrayList<FreeBoardVO> getList();
 	public FreeBoardVO getContent(int bno);
+	public FreeBoardVO getModify(int bno);
+	public int update(FreeBoardVO vo);
+	public int delete(int bno);
 	
 }

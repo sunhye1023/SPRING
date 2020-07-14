@@ -90,8 +90,7 @@
 								<li><a href="#">5</a></li>
 								<li><a href="#">다음</a></li>
 							</ul>
-							<button type="button" class="btn btn-info"
-								onclick="location.href='freeRegist'">글쓰기</button>
+							<button type="button" class="btn btn-info" onclick="location.href='freeRegist'">글쓰기</button>
 						</div>
 					</form>
 

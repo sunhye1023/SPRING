@@ -27,32 +27,32 @@
                             <p>수정하기</p>
                         </div>
                         
-                        <form>
+                        <form action="freeUpdate" name="updateForm">
                             <div>
                                 <label>DATE</label>
                                 <p>2019-12-12</p>
                             </div>   
                             <div class="form-group">
                                 <label>번호</label>
-                                <input class="form-control" name='##' readonly>
+                                <input class="form-control" name='bno' value="${vo.bno }" readonly>
                             </div>
                             <div class="form-group">
                                 <label>작성자</label>
-                                <input class="form-control" name='##'>
+                                <input class="form-control" name='writer' value="${vo.writer }">
                             </div>    
                             <div class="form-group">
                                 <label>제목</label>
-                                <input class="form-control" name='##'>
+                                <input class="form-control" name='title' value="${vo.title }">
                             </div>
 
                             <div class="form-group">
                                 <label>내용</label>
-                                <textarea class="form-control" rows="10" name='##'></textarea>
+                                <textarea class="form-control" rows="10" name='content'>${vo.content }</textarea>
                             </div>
 
-                            <button type="button" class="btn btn-dark">목록</button>    
-                            <button type="button" class="btn btn-primary">변경</button>
-                            <button type="button" class="btn btn-info">삭제</button>
+                            <button type="button" class="btn btn-dark" onclick="location.href='freeList'">목록</button>    
+                            <button type="button" class="btn btn-primary" id="updateBtn">변경</button>
+                            <button type="button" class="btn btn-info" id="deleteBtn">삭제</button>
                     </form>
                                     
                 </div>
@@ -61,5 +61,48 @@
         </section>
         
         <%@ include file="../include/footer.jsp" %>
+        
+        <script>
+        	var updateBtn = document.getElementById("updateBtn");
+        	updateBtn.onclick = function() {
+        		
+        		/*
+        		1. 폼에 데이터가 공백인지 확인처리
+        		2. 공백이 없으면 Controller에 freeUpdate요청으로 데이터를 전송
+        		3. Controller에서는 int update()메서드를 사용해서 정보를 수정
+        		4. Controller에서는 업데이트 성공시, "게시글 수정이 정상 처리되었습니다"를 출력해주세요
+        		*/
+        		if(document.updateForm.bno.value === '') {
+    				alert("번호를 입력하세요");
+    				document.updateForm.bno.focus();
+    				return;
+    			} else if(document.updateForm.writer.value === '') {
+    				alert("작성자를 입력하세요");
+    				document.updateForm.writer.focus();
+        		} else if(document.updateForm.title.value === '') {
+    				alert("제목을 입력하세요");
+    				document.updateForm.title.focus();	
+    				return;
+    			} else if(document.updateForm.content.value === '') {
+    				alert("내용을 입력하세요");
+    				document.updateForm.content.focus();
+    				return;
+    			} else {
+    				document.updateForm.submit();    				
+    			}
+
+        	}
+
+        	
+        	var deleteBtn = document.getElementById("deleteBtn");
+        	deleteBtn.onclick = function() {
+        		var bno = document.getElementsByName("bno").value;
+        		/* console.log(bno); */
+        		location.href="freeDelete?bno="+bno;
+        		
+        	}
+        		
+        </script>
+        
 </body>
 </html>

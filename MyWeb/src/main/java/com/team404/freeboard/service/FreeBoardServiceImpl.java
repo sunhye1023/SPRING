@@ -1,6 +1,8 @@
 package com.team404.freeboard.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,26 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		return freeBoardMapper.getContent(bno);
 		
+	}
+
+	@Override
+	public FreeBoardVO getModify(int bno) {
+		
+		return freeBoardMapper.getModify(bno);
+		
+	}
+
+	@Override
+	public int update(FreeBoardVO vo) {
+		
+		return freeBoardMapper.update(vo);
+
+	}
+
+	@Override
+	public int delete(int bno) {
+		
+		return freeBoardMapper.delete(bno);
 	}
 
 	
