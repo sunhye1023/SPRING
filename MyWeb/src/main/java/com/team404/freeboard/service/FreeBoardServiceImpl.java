@@ -1,5 +1,6 @@
 package com.team404.freeboard.service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public int update(FreeBoardVO vo) {
-		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		vo.setUpdatedate(Timestamp.valueOf(sdf.format(date)));		
 		return freeBoardMapper.update(vo);
 
 	}

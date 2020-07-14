@@ -10,3 +10,9 @@ create table freeboard(
 alter table freeboard add CONSTRAINT freeboard_pk PRIMARY KEY (bno);
 
 create SEQUENCE freeboard_seq INCREMENT BY 1 start with 1 NOCACHE;
+
+select * from freeboard;
+select * from freeboard where bno=1;
+update freeboard set writer='hi', title='hi', content='hi' where bno = 13;
+delete freeboard where bno = 10;
+commit;
