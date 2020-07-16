@@ -62,33 +62,40 @@
 	</section>
 
 	<%@ include file="../include/footer.jsp"%>
-	
+
 	<script>
+	
+		var listBtn = document.getElementById("listBtn");
+		listBtn.onclick = function() {
+
+			location.href = "freeList"; //목록 화면 이동
+
+		}
+
 		var registBtn = document.getElementById("registBtn");
 		registBtn.onclick = function() {
 			//form태그는 document.name으로 접근
-			if(document.registForm.writer.value === '') {
+			if (document.registForm.writer.value === '') {
 				alert("작성자를 입력하세요");
 				document.registForm.writer.focus();
 				return;
-			} else if(document.registForm.title.value === '') {
+			} else if (document.registForm.title.value === '') {
 				alert("제목을 입력하세요");
-				document.registForm.title.focus();	
+				document.registForm.title.focus();
 				return;
-			} else if(document.registForm.content.value === '') {
+			} else if (document.registForm.content.value === '') {
 				alert("내용을 입력하세요");
 				document.registForm.content.focus();
 				return;
 			} else {
 				document.registForm.submit();
-				
+
 			}
 		}
-	
-	</script>	
-	
-	
-	
+	</script>
+
+
+
 
 </body>
 </html>

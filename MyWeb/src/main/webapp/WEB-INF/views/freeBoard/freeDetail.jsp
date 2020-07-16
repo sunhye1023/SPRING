@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +32,7 @@
                         <form action="freeModify" method="post">
                             <div>
                                 <label>DATE</label>
-                                <p>2019-12-12</p>
+                                <p><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd"/></p>
                             </div>  
                             
                             <div class="form-group">
@@ -50,7 +50,7 @@
 
                             <div class="form-group">
                                 <label>내용</label>
-                                <textarea class="form-control" rows="10" name='content'  readonly>${vo.content }</textarea>
+                                <textarea class="form-control" rows="10" name='content' readonly>${vo.content }</textarea>
                             </div>
                             
 

@@ -38,17 +38,23 @@
 					<hr>
 
 					<!--form select를 가져온다 -->
-					<form>
+					<form action="freeList">
 						<div class="search-wrap">
-							<button type="button" class="btn btn-info search-btn">검색</button>
-							<input type="text" class="form-control search-input"> <select
-								class="form-control search-select">
-								<option>제목</option>
-								<option>내용</option>
-								<option>작성자</option>
-								<option>제목+내용</option>
+							<span>총 ${pageVO.total }글</span>
+
+							<button type="submit" class="btn btn-info search-btn">검색</button>
+							<input type="text" class="form-control search-input" name="searchName" value="${pageVO.cri.searchName }"> 
+							<select class="form-control search-select" name="searchType">
+								<option value="title" ${pageVO.cri.searchType eq 'title' ? 'selected' : ''  }>제목</option>
+								<option value="content" ${pageVO.cri.searchType eq 'content' ? 'selected' : ''  }>내용</option>
+								<option value="writer" ${pageVO.cri.searchType eq 'writer' ? 'selected' : ''  }>작성자</option>
+								<option value="titcont" ${pageVO.cri.searchType eq 'titcont' ? 'selected' : ''  }>제목+내용</option>
 							</select>
 						</div>
+						
+						<input type="hidden" name="pageNum" value="1">
+						<input type="hidden" name="amount" value="${pageVO.cri.amount }">
+						
 					</form>
 
 					<table class="table table-bordered">
@@ -67,29 +73,57 @@
 									<td>${vo.bno }</td>
 									<td><a href="freeDetail?bno=${vo.bno }">${vo.title }</a></td>
 									<td>${vo.writer }</td>
-									<td><fmt:formatDate value="${vo.regdate }"
-											pattern="yyyy-MM-dd HH:mm:ss" /></td>
-									<td><fmt:formatDate value="${vo.updatedate }"
-											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td><fmt:formatDate value="${vo.updatedate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 
-
 					<!--페이지 네이션을 가져옴-->
-					<form>
+					<form action="freeList" name="pageForm">
 						<div class="text-center">
 							<hr>
-							<ul class="pagination pagination-sm">
-								<li><a href="#">이전</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">다음</a></li>
+							
+							<%-- <ul class="pagination pagination-sm">
+								<c:if test="${pageVO.prev }">
+									<li><a href="freeList?pageNum=${pageVO.startPage-1 }&amount=${pageVO.amount}">이전</a></li>
+								</c:if>
+								
+								<c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+									<li class="${num == pageVO.pageNum ? 'active' : ''}">
+									<a href="freeList?pageNum=${num }&amount=${pageVO.amount}">${num }</a>
+									</li>
+								</c:forEach>
+
+								<c:if test="${pageVO.next }">
+									<li><a href="freeList?pageNum=${pageVO.endPage+1 }&amount=${pageVO.amount}">다음</a></li>
+								</c:if>
+							</ul> --%>
+							
+							
+							<ul class="pagination pagination-sm" id="pagination">
+								<c:if test="${pageVO.prev }">
+									<li><a href="#" data-pagenum="${pageVO.startPage-1 }">이전</a></li>
+								</c:if>
+								
+								<c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+									<li class="${num == pageVO.pageNum ? 'active' : ''}">
+									<a href="#" data-pagenum="${num }">${num }</a>
+									</li>
+								</c:forEach>
+
+								<c:if test="${pageVO.next }">
+									<li><a href="#" data-pagenum="${pageVO.endPage+1 }">다음</a></li>
+								</c:if>
 							</ul>
+							
+							<!-- 페이지 클릭시 숨겨서 보낼 값 -->
+							<input type="hidden" name="pageNum" value="${pageVO.cri.pageNum }">
+							<input type="hidden" name="amount" value="${pageVO.cri.amount }">
+							<input type="hidden" name="searchType" value="${pageVO.cri.searchType }">
+							<input type="hidden" name="searchName" value="${pageVO.cri.searchName }">
+
 							<button type="button" class="btn btn-info" onclick="location.href='freeRegist'">글쓰기</button>
 						</div>
 					</form>
@@ -104,9 +138,9 @@
 
 	<script>
 		window.onload = function() { //화면 로딩이 끝난 직후 실행
-			
+
 			//화면을 뒤로갔다 앞으로오면 데이터가 한번더 저장되기 때문에 삭제해줘야한다
-			
+
 			//기록이 변경 되었다면, 함수 종료
 			if (history.state === '') {
 				return;
@@ -120,17 +154,41 @@
 				history.replaceState('', null, null); //공백기록을 만들어서 추가한다
 			}
 		}
+		
+		
+		//페이지
+		/* 
+		1. 아래 페이지 버틍을 a태그에서 -> 폼 전송으로 변경
+		2. Criteria에 검색 키워드를 추가
+		3. 검색 폼과 페이지 폼이 동일한 값을 가지고 넘어가도록 hidden값을 추가
+		4. sql문을 동적쿼리로 변경, total sql문 동적쿼리로 변경
+		5. pageVO에 검색키워드를 저장하도록 처리
+		6. 화면에서 페이지 폼과 검색 폼 select박스 키워드 처리, input태그 키워드 처리
+		7. 페이지를 이동하거나, 검색버튼을 클릭했을 때 검색조건이 유지되도록 처리
+		*/
+		
+		var pagination = document.getElementById("pagination");
+		pagination.onclick = function() {
+			
+			//console.log("버튼을누를때나타나");
+			
+			event.preventDefault(); //버튼의 고유이벤트 속성 중지
+			
+			//console.log(event.target); //타겟으로 이벤트를 타고 있는 대상을 알 수 있다(페이지번호)
+			//console.log(event.target.dataset.pagenum); //현재 클릭한 대상의 데이터
+			
+			var value = event.target.dataset.pagenum; //클릭한 타겟의 데이터 셋
+			document.pageForm.pageNum.value = value; //폼에 pageNum에 타겟값 저장
+			document.pageForm.submit();
+			
+			
+		}
+
+		
+		
 	</script>
 
 </body>
-
-
-
-
-
-
-
-
 
 </html>
 

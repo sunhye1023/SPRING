@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.team404.command.FreeBoardVO;
 import com.team404.freeboard.mapper.FreeBoardMapper;
+import com.team404.util.Criteria;
 
 @Service("freeBoardService")
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -24,9 +25,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public ArrayList<FreeBoardVO> getList() {
+	public ArrayList<FreeBoardVO> getList(Criteria cri) {
 		
-		return freeBoardMapper.getList();
+		return freeBoardMapper.getList(cri);
+	}
+	
+	@Override
+	public int getTotal(Criteria cri) {
+		
+		return freeBoardMapper.getTotal(cri);
 	}
 
 	@Override
@@ -37,25 +44,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public FreeBoardVO getModify(int bno) {
+	public int getUpdate(FreeBoardVO vo) {
 		
-		return freeBoardMapper.getModify(bno);
+//		Date date = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		vo.setUpdatedate(Timestamp.valueOf(sdf.format(date)));		
 		
-	}
-
-	@Override
-	public int update(FreeBoardVO vo) {
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		vo.setUpdatedate(Timestamp.valueOf(sdf.format(date)));		
-		return freeBoardMapper.update(vo);
+		return freeBoardMapper.getUpdate(vo);
 
 	}
 
 	@Override
-	public int delete(int bno) {
+	public int getDelete(int bno) {
 		
-		return freeBoardMapper.delete(bno);
+		return freeBoardMapper.getDelete(bno);
+	
 	}
 
 	
